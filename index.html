@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERA STUDIO | Premium Minimalist Monochrome Fashion</title>
+    <!-- Google Fonts for Editorial Luxury -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS for modern structure -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for minimal UI icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: '#121212',
+                        jetblack: '#000000',
+                        softgrey: '#A0A0A0',
+                        lightgrey: '#E5E5E5',
+                        premiumborder: '#2A2A2A',
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Premium Scrollbars */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A2A2A;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A0A0A0;
+        }
+        /* Smooth Custom Utility Animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Lock screen scroll when drawer is active */
+        .no-scroll {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-charcoal text-white font-sans antialiased selection:bg-white selection:text-black">
+
+<!-- Elegant Minimal Navigation -->
+<header id="main-header" class="fixed top-0 left-0 w-full z-40 transition-all duration-500 backdrop-blur-md bg-charcoal/80 border-b border-premiumborder/50">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <!-- Minimal Left Menu -->
+        <nav class="hidden lg:flex space-x-12 text-xs uppercase tracking-widest font-light text-softgrey">
+            <button onclick="changeView('shop')" class="hover:text-white transition-colors duration-300">Shop</button>
+            <button onclick="changeView('home')" class="hover:text-white transition-colors duration-300">Collections</button>
+            <button onclick="toggleStoryModal(true)" class="hover:text-white transition-colors duration-300">Our Story</button>
+            <!-- ✨ Gemini API Powered Stylist Button -->
+            <button onclick="toggleAiAssistant(true)" class="hover:text-white transition-colors duration-300 text-white font-medium flex items-center gap-1.5">
+                <span class="animate-pulse">✨</span> AI Stylist
+            </button>
+        </nav>
+        
+        <!-- Mobile Navigation Menu Toggle -->
+        <div class="lg:hidden">
+            <button onclick="toggleMobileNav()" class="text-white focus:outline-none">
+                <i class="fa-solid fa-bars-staggered text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Center Brand Typography -->
+        <div class="text-center absolute left-1/2 transform -translate-x-1/2">
+            <button onclick="changeView('home')" class="font-serif text-xl tracking-[0.25em] font-medium text-white focus:outline-none">
+                TERA STUDIO
+            </button>
+        </div>
+
+        <!-- Right Menu Elements -->
+        <div class="flex items-center space-x-6 text-xs uppercase tracking-widest font-light">
+            <button onclick="changeView('shop')" class="hidden md:inline-block hover:text-white transition-colors duration-300 text-softgrey">Search</button>
+            <!-- Cart Icon with dynamic counter -->
+            <button onclick="toggleCartDrawer(true)" class="relative flex items-center focus:outline-none group">
+                <span class="mr-2 hover:text-white transition-colors text-softgrey duration-300 hidden sm:inline-block">Bag</span>
+                <i class="fa-solid fa-bag-shopping text-md text-white transition-transform group-hover:scale-105"></i>
+                <span id="cart-counter" class="absolute -top-1.5 -right-2.5 bg-white text-black text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 transition-opacity duration-300">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Navigation Overlay Drawer -->
+<div id="mobile-nav" class="fixed inset-0 bg-black/95 z-50 flex flex-col justify-center items-center transition-all duration-500 transform translate-x-full">
+    <button onclick="toggleMobileNav()" class="absolute top-6 right-6 text-white text-2xl focus:outline-none">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+    <nav class="flex flex-col space-y-8 text-center text-lg uppercase tracking-widest font-serif">
+        <button onclick="changeView('shop'); toggleMobileNav();" class="text-softgrey hover:text-white transition-colors">Shop Catalog</button>
+        <button onclick="changeView('home'); toggleMobileNav();" class="text-softgrey hover:text-white transition-colors">Collections</button>
+        <button onclick="toggleStoryModal(true); toggleMobileNav();" class="text-softgrey hover:text-white transition-colors">Our Story</button>
+        <!-- ✨ Mobile Gemini AI Stylist Option -->
+        <button onclick="toggleAiAssistant(true); toggleMobileNav();" class="text-white font-medium flex items-center justify-center gap-2">
+            <span>✨</span> AI STYLIST ASSISTANT
+        </button>
+        <button onclick="toggleCartDrawer(true); toggleMobileNav();" class="text-softgrey hover:text-white transition-colors">Shopping Bag</button>
+    </nav>
+</div>
+
+<!-- Main App Content Container -->
+<main class="pt-20">
+
+    <!-- VIEW 1: HOMEPAGE (Editorial Curations) -->
+    <div id="view-home" class="view-panel block">
+        <!-- Hero Section with Loop Editorial Cinematic Visual -->
+        <section class="relative h-[90vh] flex items-center justify-center overflow-hidden">
+            <!-- Background Image with Dramatic Shadow Contrast Overlay -->
+            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-[url('https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1600&auto=format&fit=crop')] scale-105 filter brightness-[0.4] contrast-125"></div>
+            <!-- Dynamic ambient blue-hour concrete background shader effect -->
+            <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-black/60"></div>
+            
+            <div class="relative z-10 text-center px-4 max-w-4xl fade-in">
+                <span class="text-xs uppercase tracking-[0.4em] text-softgrey font-light mb-4 block">Collection III &bull; Silent Mass</span>
+                <h1 class="font-serif text-4xl md:text-7xl font-light tracking-[0.18em] leading-tight mb-8">
+                    THE SILENT<br><span class="italic font-normal">ARCHITECTURE</span>
+                </h1>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <button onclick="changeView('shop')" class="px-8 py-4 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-black hover:text-white border border-white transition-all duration-300 w-full sm:w-auto">
+                        Explore Shop
+                    </button>
+                    <!-- ✨ Quick Access AI Styling Advice Button -->
+                    <button onclick="toggleAiAssistant(true)" class="px-8 py-4 bg-transparent text-white text-xs uppercase tracking-widest hover:bg-white/10 border border-white/40 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2">
+                        ✨ Konsultasi AI Stylist
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Subtle scrolling indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-center animate-bounce">
+                <p class="text-[9px] uppercase tracking-[0.3em] text-softgrey font-light mb-2">Scroll to discover</p>
+                <i class="fa-solid fa-chevron-down text-xs text-softgrey"></i>
+            </div>
+        </section>
+
+        <!-- Brand Philosophy Section -->
+        <section class="bg-jetblack py-24 px-6 border-b border-premiumborder">
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="font-serif text-lg md:text-2xl font-light text-softgrey leading-relaxed italic">
+                    "We do not build garments for a single season. We sculpt structures of comfort, minimal textures, and structural shadows designed to endure."
+                </p>
+                <div class="w-16 h-[1px] bg-white/20 mx-auto mt-8"></div>
+                <p class="text-xs tracking-widest uppercase text-softgrey mt-4 font-light">TERA STUDIO PHILOSOPHY</p>
+            </div>
+        </section>
+
+        <!-- Curated Grid Section -->
+        <section id="curated-showcase" class="py-24 px-6 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-softgrey font-light">Featured Curations</span>
+                    <h2 class="font-serif text-2xl md:text-4xl tracking-widest mt-2">ESSENTIAL EDITIONS</h2>
+                </div>
+                <button onclick="changeView('shop')" class="text-xs uppercase tracking-widest text-white hover:text-softgrey border-b border-white pb-1 mt-4 md:mt-0 self-start transition-all">
+                    View Complete Catalog
+                </button>
+            </div>
+
+            <!-- Hand-picked grid layout with spacious padding -->
+            <div id="featured-grid" class="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-16">
+                <!-- Curated items populated by JS -->
+            </div>
+        </section>
+
+        <!-- Editorial Full-Width Lookbook Banner -->
+        <section class="relative h-[80vh] flex items-center justify-end overflow-hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop');">
+            <!-- Left Cement-Blue Overlay for dramatic text integration -->
+            <div class="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/40 to-transparent"></div>
+            <div class="relative z-10 max-w-xl px-12 text-left">
+                <span class="text-xs uppercase tracking-[0.3em] text-softgrey block mb-3">Sartorial Detail</span>
+                <h3 class="font-serif text-3xl md:text-5xl tracking-widest mb-6 leading-tight">THE RAW EDGE SEAM</h3>
+                <p class="text-softgrey text-sm tracking-wide leading-relaxed mb-8 font-light">
+                    Every element is constructed with exposed structural seam guides, translating brutalist architecture directly into dynamic wearable forms. Made from 100% sustainably-sourced Italian merino wool.
+                </p>
+                <button onclick="viewProductDetails(1)" class="px-8 py-4 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-black hover:text-white border border-white transition-all duration-300">
+                    Discover Detail
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- VIEW 2: SHOP / CATALOG -->
+    <div id="view-shop" class="view-panel hidden px-6 py-12 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h1 class="font-serif text-3xl md:text-5xl tracking-[0.15em] mb-4">THE COMPLETE SHADOWS</h1>
+            <p class="text-softgrey text-xs uppercase tracking-widest font-light">Fine-textured catalog for daily minimalism</p>
+        </div>
+
+        <!-- Sleek Filter Header -->
+        <div class="flex flex-col sm:flex-row items-center justify-between border-b border-premiumborder pb-6 mb-12 gap-4">
+            <!-- Filter Options -->
+            <div class="flex flex-wrap gap-4 text-xs uppercase tracking-widest font-light">
+                <button onclick="filterCatalog('all')" id="filter-all" class="filter-btn text-white border-b border-white pb-1 focus:outline-none transition-colors duration-300">All Collections</button>
+                <button onclick="filterCatalog('outerwear')" id="filter-outerwear" class="filter-btn text-softgrey hover:text-white pb-1 focus:outline-none transition-colors duration-300">Outerwear</button>
+                <button onclick="filterCatalog('knitwear')" id="filter-knitwear" class="filter-btn text-softgrey hover:text-white pb-1 focus:outline-none transition-colors duration-300">Knitwear</button>
+                <button onclick="filterCatalog('trousers')" id="filter-trousers" class="filter-btn text-softgrey hover:text-white pb-1 focus:outline-none transition-colors duration-300">Trousers</button>
+            </div>
+            
+            <!-- Sorting drop down -->
+            <div class="text-xs uppercase tracking-widest font-light text-softgrey">
+                <span class="mr-2">Sort by:</span>
+                <select onchange="sortCatalog(this.value)" class="bg-transparent border-none text-white focus:outline-none cursor-pointer">
+                    <option value="featured" class="bg-charcoal">Featured</option>
+                    <option value="low-high" class="bg-charcoal">Price: Low to High</option>
+                    <option value="high-low" class="bg-charcoal">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Product Grid - 2/3 Clean column structure -->
+        <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-16">
+            <!-- All catalog pieces rendered dynamically by Javascript -->
+        </div>
+    </div>
+
+    <!-- VIEW 3: PRODUCT DETAIL (Sticky Sidebar Layout) -->
+    <div id="view-product-detail" class="view-panel hidden px-6 py-12 max-w-7xl mx-auto">
+        <!-- Back Button -->
+        <button onclick="changeView('shop')" class="text-xs uppercase tracking-widest text-softgrey hover:text-white mb-10 inline-flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> Return to Shop
+        </button>
+
+        <!-- Product Layout Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+            <!-- Left Side: Scrollable detailed gallery -->
+            <div id="product-detail-gallery" class="lg:col-span-7 flex flex-col space-y-6">
+                <!-- Stacked high contrast dynamic images. User can scroll down easily to view distinct details -->
+            </div>
+
+            <!-- Right Side: Sticky Product Information & Sizing Form -->
+            <div class="lg:col-span-5">
+                <div class="sticky top-28 space-y-8 bg-black p-8 rounded border border-premiumborder">
+                    <div>
+                        <span id="detail-category" class="text-xs uppercase tracking-[0.25em] text-softgrey font-light">Outerwear</span>
+                        <h1 id="detail-title" class="font-serif text-3xl md:text-4xl tracking-widest mt-2 font-light">THE ARCH COAT</h1>
+                        <p id="detail-price" class="text-lg text-white font-light mt-2 tracking-wide">IDR 2,450,000</p>
+                    </div>
+
+                    <div class="w-full h-[1px] bg-premiumborder"></div>
+
+                    <!-- Description and Material Highlights -->
+                    <div class="space-y-4">
+                        <p id="detail-desc" class="text-softgrey text-sm tracking-wide leading-relaxed font-light">
+                            Structured silhouette crafted in premium brushed heavy cotton blend. Formulated to offer a drape that emphasizes length, featuring raw finished seams and high collar button system.
+                        </p>
+                        <ul id="detail-specs" class="space-y-2 text-xs text-softgrey uppercase tracking-widest font-light list-disc pl-4">
+                            <li>Raw edge seam stitching details</li>
+                            <li>Two hidden structural side pockets</li>
+                            <li>Composition: 80% Cotton, 20% Technical Wool</li>
+                        </ul>
+                    </div>
+
+                    <!-- Model Height Reference -->
+                    <div class="flex items-center gap-3 bg-charcoal p-4 rounded border border-premiumborder">
+                        <i class="fa-solid fa-person-circle-check text-softgrey text-md"></i>
+                        <span id="detail-model" class="text-xs text-softgrey tracking-wider">Model in portrait is 178 cm height &bull; wearing Size S</span>
+                    </div>
+
+                    <!-- Size Selection Panel -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs uppercase tracking-widest font-medium text-white">Select Size</span>
+                            <!-- Size Guide Trigger Button -->
+                            <button onclick="toggleSizeGuide(true)" class="text-xs uppercase tracking-widest text-softgrey hover:text-white underline focus:outline-none">
+                                Size Guide
+                            </button>
+                        </div>
+                        
+                        <!-- Size option buttons -->
+                        <div id="size-options-container" class="grid grid-cols-4 gap-3 text-xs uppercase tracking-widest font-light">
+                            <!-- Populated dynamically to track selected size -->
+                        </div>
+                    </div>
+
+                    <!-- Call To Action Button (The single highlighted high-contrast element) -->
+                    <button onclick="addProductToBag()" class="w-full py-5 bg-white text-black text-xs uppercase tracking-widest font-bold border border-white hover:bg-black hover:text-white transition-all duration-300 shadow-xl focus:outline-none">
+                        Add to Bag
+                    </button>
+
+                    <!-- ✨ Gemini Powered Styling Advisory Section -->
+                    <div class="bg-charcoal p-5 rounded border border-premiumborder mt-6 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h4 class="text-xs uppercase tracking-widest font-medium text-white flex items-center gap-1.5">
+                                <span>✨</span> AI Styling Adviser
+                            </h4>
+                            <button onclick="generateProductStyling()" class="text-[10px] uppercase tracking-widest text-softgrey hover:text-white border-b border-softgrey hover:border-white transition-colors duration-200">
+                                Dapatkan Panduan Gaya ✨
+                            </button>
+                        </div>
+                        
+                        <div id="ai-product-styling-output" class="text-xs text-softgrey leading-relaxed font-light space-y-2">
+                            Silakan klik tombol di atas untuk memanggil kurator kecerdasan buatan TERA dalam mendesain padu padan eksklusif untuk item ini.
+                        </div>
+                    </div>
+                    
+                    <div class="text-center pt-2">
+                        <p class="text-[10px] uppercase tracking-widest text-softgrey font-light">
+                            Complimentary premium concrete-box packaging & worldwide shipping
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 4: ONE-PAGE CHECKOUT -->
+    <div id="view-checkout" class="view-panel hidden px-6 py-12 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h1 class="font-serif text-3xl md:text-5xl tracking-[0.15em] mb-4">SECURE CHECKOUT</h1>
+            <p class="text-softgrey text-xs uppercase tracking-widest font-light">Direct and distraction-free secure order submission</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+            <!-- Left Side: Order Address, Shipping and Secure Billing Inputs -->
+            <form id="checkout-form" onsubmit="handlePlaceOrder(event)" class="lg:col-span-7 space-y-12 bg-black p-8 rounded border border-premiumborder">
+                
+                <!-- Step 1: Contact Detail -->
+                <div class="space-y-6">
+                    <h3 class="text-sm uppercase tracking-widest font-medium text-white border-b border-premiumborder pb-3">01. Contact Details</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-[10px] uppercase tracking-widest text-softgrey font-light">Email Address *</label>
+                            <input type="email" required placeholder="name@domain.com" class="bg-charcoal border border-premiumborder p-4 text-xs text-white focus:outline-none focus:border-white transition-colors duration-300 rounded">
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-[10px] uppercase tracking-widest text-softgrey font-light">Phone Number *</label>
+                            <input type="tel" required placeholder="+62 812..." class="bg-charcoal border border-premiumborder p-4 text-xs text-white focus:outline-none focus:border-white transition-colors duration-300 rounded">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Shipping Destination -->
+                <div class="space-y-6">
+                    <h3 class="text-sm uppercase tracking-widest font-medium text-white border-b border-premiumborder pb-3">02. Shipping Address</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="flex flex-col space-y-2 sm:col-span-2">
+                            <label class="text-[10px] uppercase tracking-widest text-softgrey font-light">Recipient Full Name *</label>
+                            <input type="text" required placeholder="E.g., Adrian Sarta" class="bg-charcoal border border-premiumborder p-4 text-xs text-white focus:outline-none focus:border-white transition-colors duration-300 rounded">
+                        </div>
+                        <div class="flex flex-col space-y-2 sm:col-span-2">
+                            <label class="text-[10px] uppercase tracking-widest text-softgrey font-light">Full Address *</label>
+                            <textarea required rows="3" placeholder="Street Name, Building details, Apt No." class="bg-charcoal border border-premiumborder p-4 text-xs text-white focus:outline-none focus:border-white transition-colors duration-300 rounded resize-none"></textarea>
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-[10px] uppercase tracking-widest text-softgrey font-light">City *</label>
+                            <input type="text" required placeholder="E.g., Jakarta Selatan" class="bg-charcoal border border-premiumborder p-4 text-xs text-white focus:outline-none focus:border-white transition-colors duration-300 rounded">
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-[10px] uppercase tracking-widest text-softgrey font-light">Postal Code *</label>
+                            <input type="text" required placeholder="12190" class="bg-charcoal border border-premiumborder p-4 text-xs text-white focus:outline-none focus:border-white transition-colors duration-300 rounded">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment Type -->
+                <div class="space-y-6">
+                    <h3 class="text-sm uppercase tracking-widest font-medium text-white border-b border-premiumborder pb-3">03. Payment Method</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <label class="flex items-center gap-4 bg-charcoal p-4 rounded border border-white cursor-pointer hover:bg-black transition-colors">
+                            <input type="radio" name="payment-method" value="credit-card" checked class="accent-white">
+                            <div class="flex flex-col">
+                                <span class="text-xs uppercase tracking-widest text-white font-medium">Credit / Debit Card</span>
+                                <span class="text-[10px] text-softgrey mt-1">Visa, Mastercard, Amex</span>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-4 bg-charcoal p-4 rounded border border-premiumborder cursor-pointer hover:bg-black transition-colors">
+                            <input type="radio" name="payment-method" value="bank-transfer" class="accent-white">
+                            <div class="flex flex-col">
+                                <span class="text-xs uppercase tracking-widest text-white font-medium">Bank Transfer</span>
+                                <span class="text-[10px] text-softgrey mt-1">Virtual Account, Direct Transfer</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Secure Credit Card Form Input Block -->
+                    <div id="card-fields-container" class="bg-charcoal p-6 rounded border border-premiumborder space-y-6">
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-[10px] uppercase tracking-widest text-softgrey font-light">Card Number *</label>
+                            <div class="relative">
+                                <input type="text" placeholder="4111 2222 3333 4444" class="w-full bg-black border border-premiumborder p-4 text-xs text-white focus:outline-none focus:border-white transition-colors duration-300 rounded pl-12">
+                                <i class="fa-solid fa-credit-card absolute left-4 top-1/2 transform -translate-y-1/2 text-softgrey"></i>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="flex flex-col space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest text-softgrey font-light">Expiry Date *</label>
+                                <input type="text" placeholder="MM/YY" class="bg-black border border-premiumborder p-4 text-xs text-white focus:outline-none focus:border-white transition-colors duration-300 rounded">
+                            </div>
+                            <div class="flex flex-col space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest text-softgrey font-light">CVV *</label>
+                                <input type="password" maxlength="3" placeholder="***" class="bg-black border border-premiumborder p-4 text-xs text-white focus:outline-none focus:border-white transition-colors duration-300 rounded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit CTA button -->
+                <button type="submit" class="w-full py-5 bg-white text-black text-xs uppercase tracking-widest font-bold border border-white hover:bg-black hover:text-white transition-all duration-300 shadow-xl focus:outline-none flex justify-center items-center gap-3">
+                    <span id="btn-checkout-text">Authorize Secure Payment</span>
+                    <span id="btn-checkout-spinner" class="hidden"><i class="fa-solid fa-spinner animate-spin text-sm"></i></span>
+                </button>
+            </form>
+
+            <!-- Right Side: Order Calculation sticky summary -->
+            <div class="lg:col-span-5">
+                <div class="sticky top-28 bg-black p-8 rounded border border-premiumborder space-y-8">
+                    <h3 class="text-sm uppercase tracking-widest font-medium text-white border-b border-premiumborder pb-3">Order Summary</h3>
+                    
+                    <!-- Checkout items scroll list -->
+                    <div id="checkout-items-list" class="max-h-[300px] overflow-y-auto divide-y divide-premiumborder pr-2">
+                        <!-- Dynamic items list -->
+                    </div>
+
+                    <!-- Receipt calculations -->
+                    <div class="space-y-4 pt-4 border-t border-premiumborder text-xs uppercase tracking-widest font-light text-softgrey">
+                        <div class="flex justify-between">
+                            <span>Bag Subtotal</span>
+                            <span id="checkout-subtotal" class="text-white">IDR 0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Sartorial Delivery</span>
+                            <span class="text-white font-medium">COMPLIMENTARY</span>
+                        </div>
+                        <div class="flex justify-between text-sm font-semibold text-white pt-4 border-t border-premiumborder">
+                            <span>Final Authorization</span>
+                            <span id="checkout-total">IDR 0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-charcoal p-4 rounded border border-premiumborder flex items-start gap-3">
+                        <i class="fa-solid fa-shield-halved text-white text-md mt-0.5"></i>
+                        <div class="text-[10px] text-softgrey leading-relaxed tracking-wide">
+                            <span class="text-white font-medium block uppercase">SSL CERTIFIED ENCRYPTION</span>
+                            Your personal and billing data is fully secured using military-grade tokenized structures.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Slide-Cart Drawer Overlays (Cart Open State) -->
+<div id="cart-drawer-backdrop" onclick="toggleCartDrawer(false)" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-all duration-500"></div>
+
+<div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-black z-50 shadow-2xl transition-transform duration-500 transform translate-x-full border-l border-premiumborder flex flex-col">
+    <!-- Cart Drawer Header -->
+    <div class="p-6 border-b border-premiumborder flex items-center justify-between">
+        <h3 class="font-serif text-lg tracking-widest uppercase text-white">Your Selection (<span id="cart-items-count">0</span>)</h3>
+        <button onclick="toggleCartDrawer(false)" class="text-softgrey hover:text-white transition-colors focus:outline-none">
+            <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+    </div>
+
+    <!-- Scrollable Bag Items Area -->
+    <div id="cart-drawer-items" class="flex-1 p-6 overflow-y-auto space-y-6 divide-y divide-premiumborder/50">
+        <!-- Add Bag items inside this container dynamically -->
+    </div>
+
+    <!-- Cart Bottom Action Section -->
+    <div class="p-6 border-t border-premiumborder space-y-6 bg-charcoal">
+        <div class="flex justify-between text-xs uppercase tracking-widest font-light">
+            <span class="text-softgrey">Estimated Subtotal</span>
+            <span id="cart-drawer-subtotal" class="text-white font-medium">IDR 0</span>
+        </div>
+        <p class="text-[10px] text-softgrey tracking-wide leading-relaxed">
+            Shipping and duty duties calculated upon secure checkout. Returns permitted within 14 days.
+        </p>
+        
+        <div class="flex flex-col gap-3">
+            <button onclick="proceedToCheckout()" class="w-full py-4 bg-white text-black text-xs uppercase tracking-widest font-bold hover:bg-black hover:text-white border border-white transition-all duration-300 focus:outline-none">
+                Proceed to Checkout
+            </button>
+            <button onclick="toggleCartDrawer(false); changeView('shop')" class="w-full py-3 bg-transparent text-softgrey text-xs uppercase tracking-widest hover:text-white transition-colors duration-300">
+                Continue Discovering
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ✨ Gemini Powered AI Stylist Chat Drawer -->
+<div id="ai-assistant-backdrop" onclick="toggleAiAssistant(false)" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-all duration-500"></div>
+
+<div id="ai-assistant" class="fixed top-0 right-0 h-full w-full max-w-md bg-black z-50 shadow-2xl transition-transform duration-500 transform translate-x-full border-l border-premiumborder flex flex-col">
+    <!-- AI Drawer Header -->
+    <div class="p-6 border-b border-premiumborder flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <span class="text-md">✨</span>
+            <h3 class="font-serif text-md tracking-widest uppercase text-white">Sartorial Assistant</h3>
+        </div>
+        <button onclick="toggleAiAssistant(false)" class="text-softgrey hover:text-white transition-colors focus:outline-none">
+            <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+    </div>
+
+    <!-- Scrollable Chat Logs Area -->
+    <div id="ai-chat-logs" class="flex-1 p-6 overflow-y-auto space-y-4">
+        <!-- Initial Message -->
+        <div class="flex flex-col items-start space-y-1 max-w-[85%]">
+            <span class="text-[9px] uppercase tracking-widest text-softgrey">TERA AI Curator</span>
+            <div class="bg-charcoal p-4 rounded text-xs leading-relaxed text-lightgrey border border-premiumborder">
+                Selamat datang di asisten gaya pribadi TERA & KÄLLA STUDIO. Ceritakan acara, aktivitas, atau siluet yang sedang Anda cari hari ini. Kami akan merancang koleksi monokrom premium yang sempurna untuk Anda.
+            </div>
+        </div>
+    </div>
+
+    <!-- Suggestion Chips inside Chat Drawer -->
+    <div class="px-6 py-3 border-t border-premiumborder/30 flex flex-wrap gap-2">
+        <button onclick="sendQuickAiQuery('Rekomendasikan pakaian hangat premium untuk acara outdoor')" class="text-[10px] bg-charcoal border border-premiumborder hover:border-white px-3 py-1.5 rounded text-softgrey hover:text-white transition-all">✨ Outerwear Hangat</button>
+        <button onclick="sendQuickAiQuery('Bagaimana cara padu padan wide-leg trousers untuk semi-formal?')" class="text-[10px] bg-charcoal border border-premiumborder hover:border-white px-3 py-1.5 rounded text-softgrey hover:text-white transition-all">✨ Gaya Celana Lebar</button>
+        <button onclick="sendQuickAiQuery('Pakaian monokrom minimalis terbaik untuk musim hujan')" class="text-[10px] bg-charcoal border border-premiumborder hover:border-white px-3 py-1.5 rounded text-softgrey hover:text-white transition-all">✨ Musim Dingin/Hujan</button>
+    </div>
+
+    <!-- AI Input Bottom Area -->
+    <div class="p-6 border-t border-premiumborder bg-charcoal">
+        <form id="ai-chat-form" onsubmit="handleAiChatSubmit(event)" class="flex gap-3">
+            <input id="ai-chat-input" type="text" placeholder="Tanyakan saran gaya..." class="flex-1 bg-black border border-premiumborder p-3 text-xs text-white focus:outline-none focus:border-white transition-colors rounded">
+            <button type="submit" class="bg-white text-black text-xs font-bold px-4 hover:bg-black hover:text-white border border-white transition-all duration-300 rounded flex items-center justify-center">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 1: Size Guide Overlay -->
+<div id="size-guide-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 p-4">
+    <div class="bg-charcoal border border-premiumborder p-8 rounded max-w-lg w-full relative space-y-6">
+        <button onclick="toggleSizeGuide(false)" class="absolute top-6 right-6 text-softgrey hover:text-white focus:outline-none">
+            <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+        
+        <div class="text-center">
+            <h3 class="font-serif text-xl tracking-widest uppercase">SARTORIAL MEASUREMENTS</h3>
+            <p class="text-softgrey text-[10px] uppercase tracking-wider mt-1 font-light">Accurate size guidelines in centimeters</p>
+        </div>
+
+        <!-- Size Data Table Grid -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs tracking-widest font-light text-softgrey">
+                <thead>
+                    <tr class="border-b border-premiumborder text-white">
+                        <th class="py-3">SIZE</th>
+                        <th class="py-3">CHEST (cm)</th>
+                        <th class="py-3">WAIST (cm)</th>
+                        <th class="py-3">HIPS (cm)</th>
+                        <th class="py-3">SLEEVE (cm)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-premiumborder/50">
+                    <tr>
+                        <td class="py-3 text-white font-medium">S</td>
+                        <td class="py-3">88 - 92</td>
+                        <td class="py-3">74 - 78</td>
+                        <td class="py-3">94 - 98</td>
+                        <td class="py-3">61 - 62</td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 text-white font-medium">M</td>
+                        <td class="py-3">93 - 97</td>
+                        <td class="py-3">79 - 83</td>
+                        <td class="py-3">99 - 103</td>
+                        <td class="py-3">62 - 63</td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 text-white font-medium">L</td>
+                        <td class="py-3">98 - 102</td>
+                        <td class="py-3">84 - 88</td>
+                        <td class="py-3">104 - 108</td>
+                        <td class="py-3">63 - 64</td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 text-white font-medium">XL</td>
+                        <td class="py-3">103 - 107</td>
+                        <td class="py-3">89 - 93</td>
+                        <td class="py-3">109 - 113</td>
+                        <td class="py-3">64 - 65</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="bg-black p-4 rounded text-[10px] text-softgrey space-y-2 leading-relaxed tracking-wide">
+            <span class="text-white font-semibold uppercase block">MODEL REFERENCE GUIDE</span>
+            <p>Our clothes have an oversized structural fit. We recommend choosing your typical size for an architectural draped look, or one size down for a slimmer tailored presentation.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 2: Our Story Overlay -->
+<div id="story-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 p-4">
+    <div class="bg-charcoal border border-premiumborder p-8 md:p-12 rounded max-w-2xl w-full relative space-y-6 text-center">
+        <button onclick="toggleStoryModal(false)" class="absolute top-6 right-6 text-softgrey hover:text-white focus:outline-none">
+            <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+        
+        <span class="text-xs uppercase tracking-[0.3em] text-softgrey font-light block">Our Story</span>
+        <h3 class="font-serif text-2xl md:text-3xl tracking-[0.2em] uppercase text-white">TERA STUDIO</h3>
+        
+        <p class="text-softgrey text-sm tracking-wide leading-relaxed font-light text-justify mt-6">
+            KÄLLA translates directly from Swedish as "The Source." Conceived in Stockholm and hand-crafted meticulously with luxury materials, KÄLLA is built on raw architectural minimalism, absolute monochromatic discipline, and silent structural presence.
+        </p>
+        <p class="text-softgrey text-sm tracking-wide leading-relaxed font-light text-justify">
+            We operate in contrast to modern hyper-fast retail systems. Our drops are small, deliberate collections featuring raw structural tailoring, concrete-grey hues, dark-cement backdrops, and seamless tactile aesthetics. We prioritize visual longevity and physical resilience in all elements.
+        </p>
+
+        <div class="w-16 h-[1px] bg-white/20 mx-auto mt-6"></div>
+        <p class="text-[10px] uppercase tracking-widest text-softgrey">ESTABLISHED MMXVII</p>
+    </div>
+</div>
+
+<!-- Modal 3: Secure Order Success Screen -->
+<div id="order-success-modal" class="fixed inset-0 bg-black z-50 flex flex-col justify-center items-center p-6 text-center opacity-0 pointer-events-none transition-all duration-500">
+    <div class="max-w-md space-y-8 fade-in">
+        <div class="w-20 h-20 bg-white/5 border border-white/20 flex items-center justify-center rounded-full mx-auto">
+            <i class="fa-solid fa-check text-2xl text-white"></i>
+        </div>
+        
+        <div>
+            <span class="text-xs uppercase tracking-[0.4em] text-softgrey font-light">Secure Order Confirmed</span>
+            <h2 class="font-serif text-3xl tracking-widest uppercase mt-3">THANK YOU FOR YOUR CHOICE</h2>
+            <p class="text-softgrey text-xs uppercase tracking-widest font-light mt-1">Reference: <span id="success-reference-code" class="text-white font-medium">KLA-89021-98</span></p>
+        </div>
+
+        <p class="text-softgrey text-sm tracking-wide leading-relaxed font-light">
+            An authenticated confirmation summary along with live shipment logistics was delivered to your specified inbox. Your premium shipment box is scheduled for dispatch.
+        </p>
+
+        <button onclick="dismissSuccessAndHome()" class="px-8 py-4 bg-white text-black text-xs uppercase tracking-widest font-bold hover:bg-black hover:text-white border border-white transition-all duration-300 w-full">
+            Return to Homepage
+        </button>
+    </div>
+</div>
+
+<!-- Elegant Minimalist Footer -->
+<footer class="bg-black border-t border-premiumborder py-16 px-6 text-softgrey">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-xs uppercase tracking-widest font-light">
+        <!-- Brand Info -->
+        <div class="space-y-4">
+            <span class="font-serif text-lg tracking-[0.3em] text-white">KÄLLA</span>
+            <p class="text-[10px] text-softgrey tracking-wider normal-case font-light">Minimalist clothing structured as durable wearable architecture. Constructed in Stockholm.</p>
+        </div>
+
+        <!-- Links Collection -->
+        <div class="space-y-4">
+            <span class="text-white font-semibold">Discovery</span>
+            <ul class="space-y-2 text-[10px]">
+                <li><button onclick="changeView('shop')" class="hover:text-white transition-colors">Complete Catalog</button></li>
+                <li><button onclick="changeView('home')" class="hover:text-white transition-colors">Our Lookbooks</button></li>
+                <li><button onclick="toggleStoryModal(true)" class="hover:text-white transition-colors">Architectural Source</button></li>
+            </ul>
+        </div>
+
+        <!-- Support Info -->
+        <div class="space-y-4">
+            <span class="text-white font-semibold">Support Desk</span>
+            <ul class="space-y-2 text-[10px]">
+                <li><button onclick="toggleSizeGuide(true)" class="hover:text-white transition-colors">Dimension Guides</button></li>
+                <li><a href="#" class="hover:text-white transition-colors">Trace Delivery</a></li>
+                <li><a href="#" class="hover:text-white transition-colors">Client Return Portal</a></li>
+            </ul>
+        </div>
+
+        <!-- Newsletter Subscription Form -->
+        <div class="space-y-4">
+            <span class="text-white font-semibold text-[11px]">COMMUNICATION DROPS</span>
+            <form onsubmit="handleSubscribe(event)" class="space-y-2">
+                <input type="email" required placeholder="Enter your email" class="w-full bg-charcoal border border-premiumborder p-3 text-[10px] text-white focus:outline-none focus:border-white transition-colors rounded">
+                <button type="submit" class="w-full py-3 bg-white text-black font-semibold text-[10px] hover:bg-black hover:text-white border border-white transition-all duration-300">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-premiumborder/50 flex flex-col sm:flex-row items-center justify-between text-[10px] text-softgrey/60">
+        <p>&copy; 2026 KÄLLA STUDIO. All architectural rights reserved.</p>
+        <div class="flex space-x-6 mt-4 sm:mt-0">
+            <a href="#" class="hover:text-white transition-colors">Terms of Use</a>
+            <a href="#" class="hover:text-white transition-colors">Privacy Charter</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Toast Notifications UI -->
+<div id="toast-notification" class="fixed bottom-6 left-6 bg-white text-black px-6 py-4 rounded shadow-2xl z-50 text-xs uppercase tracking-widest font-bold translate-y-32 opacity-0 pointer-events-none transition-all duration-500 flex items-center gap-3">
+    <i class="fa-solid fa-circle-check text-black"></i>
+    <span id="toast-message">Selection added to Bag</span>
+</div>
+
+<script>
+    // Premium Sound Synthesizer via Web Audio API (Complies with single-file, zero-dependency requirements)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playTactileSound(type) {
+        try {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            if (type === 'click') {
+                // Subtle high-end tactile click
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.05);
+                gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.05);
+            } else if (type === 'success') {
+                // Beautiful high-end premium chime chord
+                const now = audioCtx.currentTime;
+                [440, 554.37, 659.25, 880].forEach((freq, idx) => {
+                    const oscChord = audioCtx.createOscillator();
+                    const gainChord = audioCtx.createGain();
+                    oscChord.connect(gainChord);
+                    gainChord.connect(audioCtx.destination);
+                    oscChord.type = 'triangle';
+                    oscChord.frequency.setValueAtTime(freq, now + idx * 0.05);
+                    gainChord.gain.setValueAtTime(0.04, now + idx * 0.05);
+                    gainChord.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+                    oscChord.start(now + idx * 0.05);
+                    oscChord.stop(now + 0.8);
+                });
+            }
+        } catch (e) {
+            console.log("Audio not authorized or loaded");
+        }
+    }
+
+    // Comprehensive Monochromatic Premium Catalog Dataset
+    const products = [
+        {
+            id: 1,
+            name: "THE ARCH COAT",
+            code: "KLA-AC-01",
+            category: "outerwear",
+            price: 2450000,
+            featured: true,
+            modelInfo: "Model is 182cm wearing size S",
+            images: [
+                "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=600&auto=format&fit=crop", // View A: Premium posing
+                "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?q=80&w=600&auto=format&fit=crop"  // View B: High contrast dark silhouette
+            ],
+            extraImages: [
+                "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=600&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?q=80&w=600&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop"  // View C: Raw textile zoom
+            ],
+            description: "An elegant masterpiece of tailoring. Constructed with heavy, dense structured raw wool and double seam stitching. Provides a robust architectural shoulder drape meant for structural presence during urban blue hour walks.",
+            specs: ["Heavy brushed double raw wool", "Concealed deep pockets", "Unlined minimalist inner seams", "Designed and sourced in Sweden"]
+        },
+        {
+            id: 2,
+            name: "DRASTRY KNITWEAR",
+            code: "KLA-DK-02",
+            category: "knitwear",
+            price: 1850000,
+            featured: true,
+            modelInfo: "Model is 178cm wearing size S",
+            images: [
+                "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop", // View A: High knitwear texture
+                "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop"  // View B: High contrast profile portrait
+            ],
+            extraImages: [
+                "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?q=80&w=600&auto=format&fit=crop"  // View C: Close-up fine rib
+            ],
+            description: "High-neck wool-blend heavy knit sweater sculpted with organic drop-shoulders. The cement-grey hue mirrors minimal raw industrial concrete structures, keeping a perfect soft micro-climate around the wearer.",
+            specs: ["75% Premium Alpaca wool blend", "Chunky 5-gauge architectural knit", "Mock neck raw closure", "Resistant to wrinkling and pilling"]
+        },
+        {
+            id: 3,
+            name: "SARTORIAL TROUSERS",
+            code: "KLA-ST-03",
+            category: "trousers",
+            price: 1550000,
+            featured: true,
+            modelInfo: "Model is 180cm wearing size S",
+            images: [
+                "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600&auto=format&fit=crop", // View A: Elegant structured trouser view
+                "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop"  // View B: Fine details close-up hanger pose
+            ],
+            extraImages: [
+                "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?q=80&w=600&auto=format&fit=crop"  // View C: Side details
+            ],
+            description: "Wide-leg fluid silhouette trousers in matte-charcoal wool crepe. Engineered with custom structural front pleats and adjustable invisible buckles inside the waistband to adjust fit seamlessly.",
+            specs: ["Premium wool-blend heavy crepe fabric", "Extended waistband with hook-and-bar closure", "Architectural flow line drape", "Clean back welt pockets"]
+        },
+        {
+            id: 4,
+            name: "MOLTEN SILK BLAZER",
+            code: "KLA-MB-04",
+            category: "outerwear",
+            price: 2750000,
+            featured: false,
+            modelInfo: "Model is 179cm wearing size S",
+            images: [
+                "https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?q=80&w=600&auto=format&fit=crop", // View A: Tailored jacket pose
+                "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?q=80&w=600&auto=format&fit=crop"  // View B: Texture macro photo
+            ],
+            extraImages: [
+                "https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?q=80&w=600&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?q=80&w=600&auto=format&fit=crop"
+            ],
+            description: "A relaxed, structured double-breasted blazer combining high-grade mulberry silk with technical matte viscose. Offers a fluid drape that reflects light only on its sharpest seams.",
+            specs: ["Mulberry silk and technical yarn blend", "Sleek double-breasted silhouette", "Deep internal security wallet pouch", "Made with zero synthetic microplastics"]
+        }
+    ];
+
+    // State management
+    let cart = [];
+    let currentActiveView = 'home';
+    let currentSelectedProduct = null;
+    let selectedSize = '';
+    let isMobileNavOpen = false;
+
+    // Format IDR Currency
+    function formatCurrency(num) {
+        return "IDR " + num.toLocaleString('id-ID');
+    }
+
+    // Initialize application on window load
+    window.onload = function() {
+        renderFeaturedCollection();
+        renderCatalogCollection(products);
+        updateCartStats();
+    };
+
+    // Render featured products on homepage with elegant fading overlay layouts
+    function renderFeaturedCollection() {
+        const featuredContainer = document.getElementById('featured-grid');
+        featuredContainer.innerHTML = '';
+        
+        // Show only featured or subset of catalog
+        const featuredItems = products.slice(0, 3);
+        
+        featuredItems.forEach(prod => {
+            const prodCard = createProductCardMarkup(prod);
+            featuredContainer.innerHTML += prodCard;
+        });
+    }
+
+    // Render catalog grid products
+    function renderCatalogCollection(items) {
+        const catalogContainer = document.getElementById('catalog-grid');
+        catalogContainer.innerHTML = '';
+        
+        if (items.length === 0) {
+            catalogContainer.innerHTML = `
+                <div class="col-span-full py-16 text-center text-softgrey text-sm tracking-widest font-light">
+                    No matching silhouette available at this time.
+                </div>
+            `;
+            return;
+        }
+
+        items.forEach(prod => {
+            const prodCard = createProductCardMarkup(prod);
+            catalogContainer.innerHTML += prodCard;
+        });
+    }
+
+    // Create card with overlapping image fade-in hover mechanism
+    function createProductCardMarkup(prod) {
+        return `
+            <div class="group flex flex-col justify-between cursor-pointer" onclick="viewProductDetails(${prod.id})">
+                <!-- Stacked Image Container for instant zero-flicker hover transitions -->
+                <div class="relative w-full aspect-[3/4] overflow-hidden rounded mb-6 bg-black border border-premiumborder">
+                    <!-- Base portrait image (Front) -->
+                    <img src="${prod.images[0]}" alt="${prod.name}" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105" loading="lazy">
+                    <!-- Alternative portrait image (Back/Texture) fading in on hover -->
+                    <img src="${prod.images[1]}" alt="${prod.name} alternative" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100 group-hover:scale-105" loading="lazy">
+                    
+                    <!-- Subtle category tag -->
+                    <span class="absolute top-4 left-4 text-[9px] uppercase tracking-widest bg-black/80 px-3 py-1 text-softgrey border border-premiumborder/50 rounded-full font-light">${prod.category}</span>
+                </div>
+                
+                <!-- Info details -->
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h4 class="font-serif text-sm tracking-widest text-white group-hover:text-softgrey transition-colors duration-300 font-light mb-1">${prod.name}</h4>
+                        <p class="text-[10px] text-softgrey uppercase tracking-wider font-light">${prod.code}</p>
+                    </div>
+                    <p class="text-xs text-white font-light tracking-wider">${formatCurrency(prod.price)}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    // Simple Router View Switching with instant scroll to top
+    function changeView(viewId) {
+        playTactileSound('click');
+        
+        // Hide all views
+        document.querySelectorAll('.view-panel').forEach(panel => {
+            panel.classList.add('hidden');
+            panel.classList.remove('block');
+        });
+
+        // Show selected view
+        const activePanel = document.getElementById(`view-${viewId}`);
+        if (activePanel) {
+            activePanel.classList.remove('hidden');
+            activePanel.classList.add('block');
+            activePanel.classList.add('fade-in');
+        }
+
+        currentActiveView = viewId;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Scroll smoothly to any specific DOM element
+    function scrollToElement(id) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    // Detailed item selector rendering
+    function viewProductDetails(id) {
+        const prod = products.find(p => p.id === id);
+        if (!prod) return;
+
+        currentSelectedProduct = prod;
+        selectedSize = 'S'; // default selection
+
+        // Set text content
+        document.getElementById('detail-category').textContent = prod.category;
+        document.getElementById('detail-title').textContent = prod.name;
+        document.getElementById('detail-price').textContent = formatCurrency(prod.price);
+        document.getElementById('detail-desc').textContent = prod.description;
+        document.getElementById('detail-model').textContent = `${prod.modelInfo} (wearing size ${selectedSize})`;
+
+        // Build list elements
+        const specsList = document.getElementById('detail-specs');
+        specsList.innerHTML = '';
+        prod.specs.forEach(spec => {
+            specsList.innerHTML += `<li class="relative pl-4"><span class="absolute left-0 top-1 w-1 h-1 bg-white rounded-full"></span>${spec}</li>`;
+        });
+
+        // Reset AI Output section back to original state on product switch
+        document.getElementById('ai-product-styling-output').innerHTML = "Silakan klik tombol di atas untuk memanggil kurator kecerdasan buatan KÄLLA dalam mendesain padu padan eksklusif untuk item ini.";
+
+        // Build Multi-angle vertical gallery scrollable block
+        const galleryContainer = document.getElementById('product-detail-gallery');
+        galleryContainer.innerHTML = '';
+        prod.extraImages.forEach((imgUrl, idx) => {
+            galleryContainer.innerHTML += `
+                <div class="w-full overflow-hidden rounded bg-black border border-premiumborder aspect-[3/4]">
+                    <img src="${imgUrl}" alt="${prod.name} detail view ${idx + 1}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" loading="lazy">
+                </div>
+            `;
+        });
+
+        // Generate customized Sizing controls
+        renderSizeOptions();
+
+        // Switch panel to product details
+        changeView('product-detail');
+    }
+
+    // Generate Sizing Option buttons dynamically
+    function renderSizeOptions() {
+        const sizes = ['S', 'M', 'L', 'XL'];
+        const container = document.getElementById('size-options-container');
+        container.innerHTML = '';
+
+        sizes.forEach(sz => {
+            const isSelected = sz === selectedSize;
+            container.innerHTML += `
+                <button onclick="selectSize('${sz}')" class="py-3 border transition-all duration-300 focus:outline-none rounded ${
+                    isSelected 
+                    ? 'border-white bg-white text-black font-semibold' 
+                    : 'border-premiumborder bg-charcoal text-softgrey hover:border-white hover:text-white'
+                }">
+                    ${sz}
+                </button>
+            `;
+        });
+    }
+
+    // Handle size change trigger
+    function selectSize(sz) {
+        playTactileSound('click');
+        selectedSize = sz;
+        renderSizeOptions();
+        
+        // Dynamic Model text updates based on selection
+        if (currentSelectedProduct) {
+            document.getElementById('detail-model').textContent = `${currentSelectedProduct.modelInfo} (wearing size ${selectedSize})`;
+        }
+    }
+
+    // Catalog Filtering logic
+    function filterCatalog(category) {
+        playTactileSound('click');
+        
+        // Highlight active filter button
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.add('text-softgrey');
+            btn.classList.remove('text-white', 'border-b', 'border-white');
+        });
+        
+        const activeBtn = document.getElementById(`filter-${category}`);
+        if (activeBtn) {
+            activeBtn.classList.remove('text-softgrey');
+            activeBtn.classList.add('text-white', 'border-b', 'border-white');
+        }
+
+        // Filter algorithm
+        if (category === 'all') {
+            renderCatalogCollection(products);
+        } else {
+            const filtered = products.filter(p => p.category === category);
+            renderCatalogCollection(filtered);
+        }
+    }
+
+    // Sort Catalog by price options
+    function sortCatalog(criteria) {
+        let sorted = [...products];
+        if (criteria === 'low-high') {
+            sorted.sort((a, b) => a.price - b.price);
+        } else if (criteria === 'high-low') {
+            sorted.sort((a, b) => b.price - a.price);
+        }
+        renderCatalogCollection(sorted);
+    }
+
+    // Add product to shopping bag
+    function addProductToBag() {
+        if (!currentSelectedProduct) return;
+
+        // Check if item of same size is already present
+        const existingItem = cart.find(item => item.product.id === currentSelectedProduct.id && item.size === selectedSize);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                product: currentSelectedProduct,
+                size: selectedSize,
+                quantity: 1
+            });
+        }
+
+        // Play feedback sounds
+        playTactileSound('success');
+        
+        // Refresh Cart UI details
+        updateCartStats();
+        renderCartDrawerItems();
+        
+        // Slide in the cart drawer overlay automatically for instant feedback
+        toggleCartDrawer(true);
+        
+        // Display toast micro-notification
+        showToastNotification(`"${currentSelectedProduct.name} - ${selectedSize}" added to bag`);
+    }
+
+    // Display temporary success toast notification
+    function showToastNotification(message) {
+        const toast = document.getElementById('toast-notification');
+        const toastMsg = document.getElementById('toast-message');
+        toastMsg.textContent = message;
+        
+        toast.classList.remove('translate-y-32', 'opacity-0', 'pointer-events-none');
+        toast.classList.add('translate-y-0', 'opacity-100');
+        
+        setTimeout(() => {
+            toast.classList.remove('translate-y-0', 'opacity-100');
+            toast.classList.add('translate-y-32', 'opacity-0', 'pointer-events-none');
+        }, 3000);
+    }
+
+    // Adjust quantities directly inside the cart drawer
+    function updateCartQuantity(index, delta) {
+        playTactileSound('click');
+        if (cart[index]) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartStats();
+            renderCartDrawerItems();
+        }
+    }
+
+    // Recalculate and synchronize overall pricing
+    function updateCartStats() {
+        let totalCount = 0;
+        let subtotal = 0;
+
+        cart.forEach(item => {
+            totalCount += item.quantity;
+            subtotal += item.product.price * item.quantity;
+        });
+
+        // Sync header badge
+        const badge = document.getElementById('cart-counter');
+        if (totalCount > 0) {
+            badge.textContent = totalCount;
+            badge.classList.remove('opacity-0');
+            badge.classList.add('opacity-100');
+        } else {
+            badge.classList.add('opacity-0');
+            badge.classList.remove('opacity-100');
+        }
+
+        // Sync items count text
+        document.getElementById('cart-items-count').textContent = totalCount;
+        
+        // Sync subtotal values
+        const formattedSubtotal = formatCurrency(subtotal);
+        document.getElementById('cart-drawer-subtotal').textContent = formattedSubtotal;
+        
+        // Checkout totals
+        const checkoutSubtotalEl = document.getElementById('checkout-subtotal');
+        const checkoutTotalEl = document.getElementById('checkout-total');
+        if (checkoutSubtotalEl && checkoutTotalEl) {
+            checkoutSubtotalEl.textContent = formattedSubtotal;
+            checkoutTotalEl.textContent = formattedSubtotal;
+        }
+    }
+
+    // Render dynamic item list to Cart Drawer
+    function renderCartDrawerItems() {
+        const container = document.getElementById('cart-drawer-items');
+        container.innerHTML = '';
+
+        if (cart.length === 0) {
+            container.innerHTML = `
+                <div class="h-64 flex flex-col justify-center items-center text-center text-softgrey space-y-4">
+                    <i class="fa-solid fa-bag-shopping text-3xl text-premiumborder"></i>
+                    <p class="text-xs uppercase tracking-widest font-light">Your shopping bag is empty</p>
+                </div>
+            `;
+            return;
+        }
+
+        cart.forEach((item, index) => {
+            container.innerHTML += `
+                <div class="flex items-start gap-4 pt-6 first:pt-0">
+                    <img src="${item.product.images[0]}" alt="${item.product.name}" class="w-16 h-20 object-cover rounded bg-charcoal border border-premiumborder">
+                    <div class="flex-1 space-y-1">
+                        <div class="flex items-start justify-between">
+                            <h4 class="text-xs uppercase tracking-widest text-white font-medium">${item.product.name}</h4>
+                            <span class="text-xs text-white font-light">${formatCurrency(item.product.price * item.quantity)}</span>
+                        </div>
+                        <p class="text-[10px] text-softgrey uppercase tracking-wider font-light">Size: ${item.size}</p>
+                        
+                        <!-- Count regulators -->
+                        <div class="flex items-center justify-between pt-3">
+                            <div class="flex items-center border border-premiumborder rounded overflow-hidden">
+                                <button onclick="updateCartQuantity(${index}, -1)" class="px-2.5 py-1 text-softgrey hover:text-white hover:bg-premiumborder/50 text-xs">-</button>
+                                <span class="px-3 text-[10px] text-white">${item.quantity}</span>
+                                <button onclick="updateCartQuantity(${index}, 1)" class="px-2.5 py-1 text-softgrey hover:text-white hover:bg-premiumborder/50 text-xs">+</button>
+                            </div>
+                            <button onclick="updateCartQuantity(${index}, -${item.quantity})" class="text-[10px] uppercase tracking-widest text-softgrey hover:text-white underline">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    // Open/Close slide cart drawer overlay panel
+    function toggleCartDrawer(open) {
+        const drawer = document.getElementById('cart-drawer');
+        const backdrop = document.getElementById('cart-drawer-backdrop');
+        
+        if (open) {
+            playTactileSound('click');
+            renderCartDrawerItems();
+            drawer.classList.remove('translate-x-full');
+            backdrop.classList.remove('opacity-0', 'pointer-events-none');
+            backdrop.classList.add('opacity-100');
+            document.body.classList.add('no-scroll');
+        } else {
+            drawer.classList.add('translate-x-full');
+            backdrop.classList.add('opacity-0', 'pointer-events-none');
+            backdrop.classList.remove('opacity-100');
+            document.body.classList.remove('no-scroll');
+        }
+    }
+
+    // Transition to Checkout panel screen
+    function proceedToCheckout() {
+        if (cart.length === 0) {
+            showToastNotification("Your bag is empty. Add a product first.");
+            return;
+        }
+
+        toggleCartDrawer(false);
+        changeView('checkout');
+        renderCheckoutList();
+    }
+
+    // Render summary list within Checkout panel
+    function renderCheckoutList() {
+        const container = document.getElementById('checkout-items-list');
+        container.innerHTML = '';
+
+        cart.forEach(item => {
+            container.innerHTML += `
+                <div class="flex items-center gap-4 py-4 first:pt-0">
+                    <img src="${item.product.images[0]}" alt="${item.product.name}" class="w-12 h-16 object-cover rounded border border-premiumborder">
+                    <div class="flex-1 text-xs">
+                        <div class="flex justify-between text-white font-medium">
+                            <span class="uppercase tracking-widest">${item.product.name}</span>
+                            <span>${formatCurrency(item.product.price * item.quantity)}</span>
+                        </div>
+                        <div class="flex justify-between text-softgrey text-[10px] uppercase tracking-wider mt-1 font-light">
+                            <span>Size: ${item.size} &bull; Qty: ${item.quantity}</span>
+                            <span>${formatCurrency(item.product.price)} each</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        updateCartStats();
+    }
+
+    // Process Placing Order simulations with realistic loading periods
+    function handlePlaceOrder(event) {
+        event.preventDefault();
+        playTactileSound('click');
+        
+        const btnText = document.getElementById('btn-checkout-text');
+        const spinner = document.getElementById('btn-checkout-spinner');
+        
+        // Show charging/processing spinner loader
+        btnText.textContent = "Verifying Credentials...";
+        spinner.classList.remove('hidden');
+
+        // Simulate secure verification delay
+        setTimeout(() => {
+            playTactileSound('success');
+            
+            // Generate a premium order reference id
+            const refCode = "KLA-" + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('success-reference-code').textContent = refCode;
+            
+            // Show premium order success view panel overlay
+            const successModal = document.getElementById('order-success-modal');
+            successModal.classList.remove('opacity-0', 'pointer-events-none');
+            successModal.classList.add('opacity-100');
+            
+            // Empty user cart
+            cart = [];
+            updateCartStats();
+            
+            // Reset loader states
+            btnText.textContent = "Authorize Secure Payment";
+            spinner.classList.add('hidden');
+            document.getElementById("checkout-form").reset();
+        }, 2200);
+    }
+
+    // Dismiss order success modal and navigate to home view
+    function dismissSuccessAndHome() {
+        playTactileSound('click');
+        const successModal = document.getElementById('order-success-modal');
+        successModal.classList.add('opacity-0', 'pointer-events-none');
+        successModal.classList.remove('opacity-100');
+        changeView('home');
+    }
+
+    // Handle dummy newsletter subscription
+    function handleSubscribe(event) {
+        event.preventDefault();
+        playTactileSound('success');
+        showToastNotification("Subscription confirmed. Welcome to the source.");
+        event.target.reset();
+    }
+
+    // Toggle Size Guide modal state
+    function toggleSizeGuide(show) {
+        const modal = document.getElementById('size-guide-modal');
+        if (show) {
+            playTactileSound('click');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+        } else {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.classList.remove('opacity-100');
+        }
+    }
+
+    // Toggle Our Story modal state
+    function toggleStoryModal(show) {
+        const modal = document.getElementById('story-modal');
+        if (show) {
+            playTactileSound('click');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+        } else {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.classList.remove('opacity-100');
+        }
+    }
+
+    // Toggle Mobile Navigation overlay panel
+    function toggleMobileNav() {
+        const mobileNav = document.getElementById('mobile-nav');
+        isMobileNavOpen = !isMobileNavOpen;
+        if (isMobileNavOpen) {
+            mobileNav.classList.remove('translate-x-full');
+            document.body.classList.add('no-scroll');
+        } else {
+            mobileNav.classList.add('translate-x-full');
+            document.body.classList.remove('no-scroll');
+        }
+    }
+
+    /* ==========================================================
+       ✨ GEMINI API INTEGRATIONS & SERVICES ✨
+       ========================================================== */
+
+    // Open/Close AI Chat Assistant Drawer
+    function toggleAiAssistant(open) {
+        const drawer = document.getElementById('ai-assistant');
+        const backdrop = document.getElementById('ai-assistant-backdrop');
+        
+        if (open) {
+            playTactileSound('click');
+            drawer.classList.remove('translate-x-full');
+            backdrop.classList.remove('opacity-0', 'pointer-events-none');
+            backdrop.classList.add('opacity-100');
+            document.body.classList.add('no-scroll');
+        } else {
+            drawer.classList.add('translate-x-full');
+            backdrop.classList.add('opacity-0', 'pointer-events-none');
+            backdrop.classList.remove('opacity-100');
+            document.body.classList.remove('no-scroll');
+        }
+    }
+
+    // Call Gemini API with retries and exponential backoff
+    async function callGeminiAPI(promptText, systemPrompt) {
+        const apiKey = ""; // Runtime automatically provisions this key
+        const model = "gemini-2.5-flash-preview-09-2025";
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        
+        const payload = {
+            contents: [{ parts: [{ text: promptText }] }],
+            systemInstruction: { parts: [{ text: systemPrompt }] }
+        };
+
+        let delay = 1000;
+        for (let attempt = 0; attempt < 5; attempt++) {
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "Maaf, asisten kami tidak berhasil merespon.";
+                }
+            } catch (error) {
+                // Do not log retry failures to console per instructions
+            }
+            await new Promise(resolve => setTimeout(resolve, delay));
+            delay *= 2;
+        }
+        throw new Error("Gagal terhubung dengan KÄLLA AI Curator.");
+    }
+
+    // 1. ✨ AI Styling Guide (Product Detail Page)
+    async function generateProductStyling() {
+        if (!currentSelectedProduct) return;
+        playTactileSound('click');
+
+        const outputArea = document.getElementById('ai-product-styling-output');
+        outputArea.innerHTML = `
+            <div class="flex items-center gap-2 py-2">
+                <i class="fa-solid fa-circle-notch animate-spin text-white"></i>
+                <span class="text-[10px] uppercase tracking-widest text-white">Merancang paduan gaya eksklusif...</span>
+            </div>
+        `;
+
+        const catalogSummary = products.map(p => `${p.name} (${p.category}): ${p.description}`).join('\n');
+        
+        const systemPrompt = `Anda adalah seorang "Sartorial Director" mewah dari brand fashion minimalis premium monokromatik "KÄLLA STUDIO". 
+Gaya busana Anda terinspirasi dari brutalist architecture, raw textures, minimal silhouettes, Swedia, dan skema warna hitam, abu-abu semen, dan putih bersih.
+Berikan panduan padu padan eksklusif untuk produk yang ditanyakan dengan koleksi KÄLLA STUDIO lainnya. 
+Tulis jawaban Anda dalam Bahasa Indonesia yang sangat elegan, puitis, profesional, dan ringkas (maksimal 3 paragraf pendek).`;
+
+        const query = `Bagaimana cara terbaik untuk memadupadankan (mix & match) produk berikut:
+Nama: ${currentSelectedProduct.name}
+Kategori: ${currentSelectedProduct.category}
+Deskripsi: ${currentSelectedProduct.description}
+
+Koleksi KÄLLA STUDIO yang tersedia di katalog untuk dipadupadankan:
+${catalogSummary}
+
+Rekomendasikan paduan yang paling arsitektural dan berkarakter kuat menggunakan pilihan tersebut.`;
+
+        try {
+            const advice = await callGeminiAPI(query, systemPrompt);
+            outputArea.innerHTML = `<div class="fade-in space-y-2 text-justify">${advice.replace(/\n/g, '<br>')}</div>`;
+            playTactileSound('success');
+        } catch (error) {
+            outputArea.innerHTML = `<span class="text-xs text-red-400">Gagal memuat panduan gaya. Silakan coba kembali sesaat lagi.</span>`;
+        }
+    }
+
+    // 2. ✨ AI Sartorial Assistant Chat Drawer
+    async function handleAiChatSubmit(event) {
+        event.preventDefault();
+        const inputEl = document.getElementById('ai-chat-input');
+        const userQuery = inputEl.value.trim();
+        if (!userQuery) return;
+
+        inputEl.value = '';
+        appendChatMessage('user', userQuery);
+        playTactileSound('click');
+
+        // Add dummy loading bubble
+        const loadingId = appendChatMessage('ai-loading', 'Sedang menyusun rekomendasi...');
+
+        const catalogSummary = products.map(p => `${p.name} (Harga: ${formatCurrency(p.price)}): ${p.description}`).join('\n');
+        
+        const systemPrompt = `Anda adalah "KÄLLA AI Curator", asisten gaya digital eksklusif untuk butik monokrom premium "KÄLLA STUDIO".
+Gunakan bahasa Indonesia yang mewah, santun, minimalis, dan sangat estetik. Anda membantu menyarankan produk yang tepat dari katalog berdasarkan gaya hidup, cuaca, bentuk tubuh, atau acara pelanggan.
+Selalu rujuk nama pakaian yang ada di katalog resmi KÄLLA STUDIO berikut jika memungkinkan:
+${catalogSummary}
+
+Posisikan diri Anda sebagai konsultan busana papan atas. Hindari penggunaan markdown tebal terlalu banyak, buat tanggapan Anda mengalir dengan indah dan puitis namun tetap informatif. Maksimal 3-4 kalimat per respon agar nyaman dibaca di layar ponsel.`;
+
+        try {
+            const reply = await callGeminiAPI(userQuery, systemPrompt);
+            removeChatMessage(loadingId);
+            appendChatMessage('ai', reply);
+            playTactileSound('success');
+        } catch (error) {
+            removeChatMessage(loadingId);
+            appendChatMessage('ai', 'Maaf, sambungan enkripsi aman kurator kami mengalami hambatan. Silakan ajukan pertanyaan Anda kembali.');
+        }
+    }
+
+    // Helper: Send Quick Suggestion Chip to AI Chat
+    function sendQuickAiQuery(text) {
+        document.getElementById('ai-chat-input').value = text;
+        const form = document.getElementById('ai-chat-form');
+        form.dispatchEvent(new Event('submit'));
+    }
+
+    // Helper: Append chat message to logs drawer
+    function appendChatMessage(sender, text) {
+        const logs = document.getElementById('ai-chat-logs');
+        const messageId = "msg-" + Date.now();
+        
+        let msgHtml = '';
+        if (sender === 'user') {
+            msgHtml = `
+                <div id="${messageId}" class="flex flex-col items-end space-y-1 max-w-[85%] ml-auto">
+                    <span class="text-[9px] uppercase tracking-widest text-softgrey">Anda</span>
+                    <div class="bg-white text-black p-4 rounded text-xs leading-relaxed font-medium">
+                        ${text}
+                    </div>
+                </div>
+            `;
+        } else if (sender === 'ai-loading') {
+            msgHtml = `
+                <div id="${messageId}" class="flex flex-col items-start space-y-1 max-w-[85%]">
+                    <span class="text-[9px] uppercase tracking-widest text-softgrey">KÄLLA AI Curator</span>
+                    <div class="bg-charcoal p-4 rounded text-xs leading-relaxed text-softgrey border border-premiumborder flex items-center gap-2">
+                        <i class="fa-solid fa-circle-notch animate-spin text-white"></i>
+                        <span>${text}</span>
+                    </div>
+                </div>
+            `;
+        } else {
+            msgHtml = `
+                <div id="${messageId}" class="flex flex-col items-start space-y-1 max-w-[85%] fade-in">
+                    <span class="text-[9px] uppercase tracking-widest text-softgrey">KÄLLA AI Curator</span>
+                    <div class="bg-charcoal p-4 rounded text-xs leading-relaxed text-lightgrey border border-premiumborder text-justify">
+                        ${text.replace(/\n/g, '<br>')}
+                    </div>
+                </div>
+            `;
+        }
+
+        logs.innerHTML += msgHtml;
+        logs.scrollTop = logs.scrollHeight;
+        return messageId;
+    }
+
+    // Helper: Remove loading chat bubble
+    function removeChatMessage(id) {
+        const el = document.getElementById(id);
+        if (el) el.remove();
+    }
+</script>
+</body>
+</html>
